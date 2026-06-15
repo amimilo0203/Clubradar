@@ -20,9 +20,12 @@ public class LoginOptionScreen extends JFrame{
         fortfahrenButton.addActionListener(e -> {
             loginOption = (String) comboBox1.getSelectedItem();
             System.out.println("Login Option: " + loginOption);
-            LoginScreen loginScreen = new LoginScreen();
+            LoginScreen loginScreen = new LoginScreen(loginOption);
             loginScreen.setVisible(true);
             dispose();
         });
+    }
+    public String getLoginOption() {
+        return loginOption;
     }
 }

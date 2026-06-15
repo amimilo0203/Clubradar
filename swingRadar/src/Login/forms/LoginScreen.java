@@ -14,8 +14,10 @@ public class LoginScreen extends JFrame {
     private boolean angemeldetBleiben = false;
     private String username;
     private String password;
+    private String role;
 
-    public LoginScreen() {
+    public LoginScreen(String r) {
+        role = r;
         setTitle("Anmelden");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setContentPane(panel1);
@@ -41,8 +43,11 @@ public class LoginScreen extends JFrame {
             }
             System.out.println("Passwort: " + user.checkPassword(password));
             System.out.println("Benutzername: " + username);
-            System.out.println("Passwort: " + password);
+            //System.out.println("Passwort: " + password);
             System.out.println("Angemeldet bleiben: " + angemeldetBleiben);
+            ClubMap clubmap = new ClubMap();
+            clubmap.setVisible(true);
+            dispose();
         });
         regestrierenButton.addActionListener(e -> {
             username = textField1.getText();
@@ -54,11 +59,11 @@ public class LoginScreen extends JFrame {
                 return;
             }
             System.out.println("Benutzername: " + username);
-            System.out.println("Passwort: " + password);
+            //System.out.println("Passwort: " + password);
             System.out.println("Angemeldet bleiben: " + angemeldetBleiben);
             Layer8 user = Database.getDatabase().sucheNachName(username);
             if(user == null){
-                user = new Layer8(username, password, angemeldetBleiben, "Betreiber");
+                user = new Layer8(username, password, angemeldetBleiben, role);
                 Database.getDatabase().hinzufuegen(user);
             }
             System.out.println("Passwort: " + user.checkPassword(password));
