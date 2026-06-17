@@ -12,17 +12,17 @@ import java.util.Set;
 
 public class infoWaypoint extends DefaultWaypoint {
     private final String name;
-    private final String[] beschreibung;
-    private final int size;
+    private final String beschreibung;
+    //private final int size;
 
-    public infoWaypoint(GeoPosition pos, String name, String[] beschreibung) {
+    public infoWaypoint(GeoPosition pos, String name, String beschreibung) {
         super(pos);
         this.name = name;
         this.beschreibung = beschreibung;
-        this.size = this.beschreibung.length;
+        //this.size = this.beschreibung.length;
     }
 
     public String getName() { return name; }
-    public String[] getBeschreibung() { return beschreibung; }
-    public int getSize() {return size;}
+    public String getBeschreibung() { return beschreibung; }
+    //public int getSize() {return size;}
 }

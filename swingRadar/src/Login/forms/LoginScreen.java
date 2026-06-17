@@ -45,8 +45,7 @@ public class LoginScreen extends JFrame {
             System.out.println("Benutzername: " + username);
             //System.out.println("Passwort: " + password);
             System.out.println("Angemeldet bleiben: " + angemeldetBleiben);
-            ClubMap clubmap = new ClubMap();
-            clubmap.setVisible(true);
+            ClubMap mapframe = new ClubMap();
             dispose();
         });
         regestrierenButton.addActionListener(e -> {
