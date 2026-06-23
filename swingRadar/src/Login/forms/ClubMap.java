@@ -35,9 +35,12 @@ public class ClubMap extends JFrame {
         mapViewer.setZoom(7);
         mapViewer.setAddressLocation(new GeoPosition(51.2217, 6.7762));
 
-        waypoints.add(new infoWaypoint(new GeoPosition(51.2217, 6.7762), "Düsseldorf", "Ist halt Düsseldorf"));
-        waypoints.add(new infoWaypoint(new GeoPosition(50.9333, 6.9500), "Köln", "Ist halt Köln"));
-
+        waypoints.add(new infoWaypoint(new GeoPosition(51.195457, 6.428547), "Projekt 42", new String[]{"Waldhausener Str. 40-42, 41061 Mönchengladbach-Nord", "Freitag " +
+                "23:00–05:00 " +
+                "Samstag " +
+                "23:00–05:00", "http://projekt42.info/"}));
+        waypoints.add(new infoWaypoint(new GeoPosition(50.9333, 6.9500), "Köln", new String[]{"Ist halt Köln", "Immernoch Köln"}));
+        //51.195457, 6.428547
         WaypointPainter<Waypoint> painter = new WaypointPainter<>();
         painter.setWaypoints(waypoints);
         mapViewer.setOverlayPainter(painter);

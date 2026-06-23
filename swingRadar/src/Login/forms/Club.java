@@ -1,21 +1,36 @@
 package Login.forms;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Club extends JPanel {
-    private JPanel panel1;
-    private JButton test1Button;
-    private JTextField test3TextField;
-    private JLabel test2;
+    private JPanel mainPanel;
+    private JLabel clubName;
+    private JLabel oefnungszeiten;
+    private JLabel adresse;
+    private JLabel Sperator1;
+    private JLabel Website;
+    private String[] beschreibung;
 
     public Club(){
-        test2.setText("hallo");
+        clubName.setText(" ");
+        oefnungszeiten.setText(" ");
+        adresse.setText(" ");
+        Sperator1.setText(" ");
+        Website.setText(" ");
+        System.out.println(clubName.getText());
+        add(mainPanel, BorderLayout.CENTER);
     }
 
     public void zeigeWaypoint(infoWaypoint waypoint) {
+        beschreibung = waypoint.getBeschreibung();
         System.out.println("Anzeigen der Informationen");
         System.out.println(waypoint.getBeschreibung());
-        test2.setText(waypoint.getName());
-        test3TextField.setText(waypoint.getBeschreibung());
+        clubName.setText(waypoint.getName());
+        adresse.setText(beschreibung[0]);
+        oefnungszeiten.setText(beschreibung[1]);
+        Website.setText(beschreibung[2]);
+        revalidate();
+        repaint();
     }
 }
