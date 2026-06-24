@@ -27,9 +27,9 @@ public class Club extends JPanel {
         System.out.println("Anzeigen der Informationen");
         System.out.println(waypoint.getBeschreibung());
         clubName.setText(waypoint.getName());
-        adresse.setText(beschreibung[0]);
-        oefnungszeiten.setText(beschreibung[1]);
-        Website.setText(beschreibung[2]);
+        adresse.setText("📍"+beschreibung[0]);
+        oefnungszeiten.setText("🕑"+beschreibung[1]);
+        Website.setText("🌐"+beschreibung[2]);
         revalidate();
         repaint();
     }

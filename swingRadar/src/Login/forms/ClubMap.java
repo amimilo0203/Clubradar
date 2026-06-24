@@ -19,7 +19,9 @@ import java.util.Set;
 public class ClubMap extends JFrame {
 
     private final Club club;
+    private final ClubOverview clubOverview;
     private final Set<Waypoint> waypoints = new HashSet<>();
+    private JSplitPane splitPane;
 
     public ClubMap() {
         setTitle("Karte");
@@ -46,10 +48,11 @@ public class ClubMap extends JFrame {
         mapViewer.setOverlayPainter(painter);
 
         club = new Club();
+        clubOverview = new ClubOverview();
 
-        JSplitPane splitPane = new JSplitPane(
+        splitPane = new JSplitPane(
                 JSplitPane.HORIZONTAL_SPLIT,
-                club,
+                clubOverview,
                 mapViewer
         );
         splitPane.setDividerLocation(300);
@@ -92,6 +95,9 @@ public class ClubMap extends JFrame {
                     if (Math.abs(e.getX() - dx) < 15 && Math.abs(e.getY() - dy) < 15) {
                         System.out.println("Übertrage Infos");
                         club.zeigeWaypoint((infoWaypoint) waypoint);
+                        splitPane.setLeftComponent(club);
+                        splitPane.revalidate();
+                        splitPane.repaint();
                         break;
                     }
                 }
