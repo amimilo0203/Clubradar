@@ -23,7 +23,8 @@ public class ClubOverview extends JPanel {
         this.splitPane = splitPane;
         add(mainPanel, BorderLayout.CENTER);
         Club1.setText("Projekt 42"); //clubinfo.name
-        clubWaypoint = new infoWaypoint(new GeoPosition(51.195457, 6.428547), "Projekt 42", new String[]{"Waldhausener Str. 40-42, 41061 Mönchengladbach-Nord", "Freitag,23:00–05:00;Samstag,23:00–05:00;", "http://projekt42.info/"});
+        clubWaypoint = ClubDatabase.getClub(0).clubinfo;
+        //clubWaypoint = new infoWaypoint(new GeoPosition(51.195457, 6.428547), "Projekt 42", new String[]{"Waldhausener Str. 40-42, 41061 Mönchengladbach-Nord", "Freitag,23:00–05:00;Samstag,23:00–05:00;", "http://projekt42.info/"});
         Club1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         Club1.addMouseListener(new MouseAdapter() {
             @Override

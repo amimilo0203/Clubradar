@@ -49,6 +49,9 @@ public class Club extends JPanel {
     }
 
     public void zeigeWaypoint(infoWaypoint waypoint) {
+        String bewertungen = clubinfos.getBewertungen();
+        System.out.println(bewertungen);
+        System.out.println("Informationen werden angeziegt");
         if(beschreibung == null) {
             beschreibung = waypoint.getBeschreibung();
         }if(beschreibung == null){
@@ -73,7 +76,7 @@ public class Club extends JPanel {
         adresse.setText("📍"+beschreibung[0]);
         oefnungszeiten.setText(oefnungszeitenFormat(beschreibung[1]).replace(";", "\n"));
         Website.setText("🌐"+beschreibung[2].replace("http://", "").replace("https://", "").replace("/", ""));
-
+        Bewertungen.setText(bewertungenFormat(bewertungen));
         revalidate();
         repaint();
     }
