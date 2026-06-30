@@ -74,8 +74,7 @@ public class ClubDatabase {
         ArrayList<clubinfos> deduplicated = new ArrayList<>();
         ArrayList<String> seenNames = new ArrayList<>();
         int duplicateCount = 0;
-        
-        // Process in order - Google/HERE results have priority since they're loaded first
+
         for (clubinfos club : clubs) {
             String normalizedName = normalizeName(club.getClubinfo().getName());
             if (!seenNames.contains(normalizedName)) {

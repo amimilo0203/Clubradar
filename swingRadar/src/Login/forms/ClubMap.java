@@ -59,6 +59,8 @@ public class ClubMap extends JFrame {
         splitPane.setDividerLocation(300);
         splitPane.setResizeWeight(0.0);
 
+        club.setNavigation(splitPane, clubOverview);
+
         add(splitPane, BorderLayout.CENTER);
 
         PanMouseInputListener panListener = new PanMouseInputListener(mapViewer);

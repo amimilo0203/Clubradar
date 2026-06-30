@@ -29,21 +29,26 @@ public class LoginScreen extends JFrame {
             username = textField1.getText();
             password = new String(passwordField1.getPassword());
             angemeldetBleiben = angemeldetBleibenCheckBox.isSelected();
-            Layer8 user = Database.getDatabase().sucheNachName(username);
+            // Reset both error labels before every login attempt.
             Userdoesnotexist.setText("");
             incorrectPassword.setText("");
-            if(user == null){
+
+            // Look the user up in the central user management (loaded from JSON).
+            Layer8 user = UserManager.getInstance().findUserByName(username);
+            if (user == null) {
                 Userdoesnotexist.setText("Benutzer existiert nicht");
                 return;
             }
-            if(!user.checkPassword(password) || password.isEmpty()){
+            if (password.isEmpty() || !user.checkPassword(password)) {
                 incorrectPassword.setText("Falsches Passwort");
-                Userdoesnotexist.setText("Benutzername existiert nicht");
                 return;
             }
-            System.out.println("Passwort: " + user.checkPassword(password));
+
+            // Remember the logged-in user so it can be used later, e.g. as the
+            // author of a rating.
+            UserManager.getInstance().setCurrentUser(user);
+
             System.out.println("Benutzername: " + username);
-            //System.out.println("Passwort: " + password);
             System.out.println("Angemeldet bleiben: " + angemeldetBleiben);
             ClubMap mapframe = new ClubMap();
             dispose();
@@ -52,20 +57,24 @@ public class LoginScreen extends JFrame {
             username = textField1.getText();
             password = new String(passwordField1.getPassword());
             angemeldetBleiben = angemeldetBleibenCheckBox.isSelected();
+            Userdoesnotexist.setText("");
             incorrectPassword.setText("");
-            if (password.isEmpty()){
+
+            if (password.isEmpty()) {
                 incorrectPassword.setText("Gib ein Passwort an!");
                 return;
             }
-            System.out.println("Benutzername: " + username);
-            //System.out.println("Passwort: " + password);
-            System.out.println("Angemeldet bleiben: " + angemeldetBleiben);
-            Layer8 user = Database.getDatabase().sucheNachName(username);
-            if(user == null){
-                user = new Layer8(username, password, angemeldetBleiben, role);
-                Database.getDatabase().hinzufuegen(user);
+
+            // registerUser() adds the user, writes users.json, and returns null
+            // if the name is already taken.
+            Layer8 user = UserManager.getInstance().registerUser(username, password, angemeldetBleiben, role);
+            if (user == null) {
+                Userdoesnotexist.setText("Benutzer existiert bereits");
+                return;
             }
-            System.out.println("Passwort: " + user.checkPassword(password));
+
+            System.out.println("Benutzer registriert: " + username);
+            System.out.println("Angemeldet bleiben: " + angemeldetBleiben);
         });
     }
 }
