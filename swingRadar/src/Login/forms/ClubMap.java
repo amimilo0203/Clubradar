@@ -35,11 +35,13 @@ public class ClubMap extends JFrame {
         tileFactory.setThreadPoolSize(4);
         mapViewer.setTileFactory(tileFactory);
         mapViewer.setZoom(7);
-        mapViewer.setAddressLocation(new GeoPosition(51.2217, 6.7762));
+        mapViewer.setAddressLocation(new GeoPosition(51.195457, 6.428547));
 
-        //waypoints.add(new infoWaypoint(new GeoPosition(51.195457, 6.428547), "Projekt 42", new String[]{"Waldhausener Str. 40-42, 41061 Mönchengladbach-Nord", "Freitag,23:00–05:00;Samstag,23:00–05:00;", "http://projekt42.info/"}));
-        //waypoints.add(new infoWaypoint(new GeoPosition(50.9333, 6.9500), "Köln", new String[]{"Ist halt Köln", "Immernoch Köln"}));
-        //51.195457, 6.428547
+        for (clubinfos club : ClubDatabase.getClubs()) {
+            waypoints.add(club.getClubinfo());
+            System.out.println("Marker hinzugefügt: " + club.getClubinfo().getName());
+        }
+
         WaypointPainter<Waypoint> painter = new WaypointPainter<>();
         painter.setWaypoints(waypoints);
         mapViewer.setOverlayPainter(painter);
@@ -81,6 +83,7 @@ public class ClubMap extends JFrame {
         zoomPanel.add(zoomOut);
         add(zoomPanel, BorderLayout.SOUTH);
 
+        //Beginnend von hier bis zur Anmerkung Ende wurde der Code mit Cascade ai SWE-1.6 erstellt
         mapViewer.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -94,6 +97,7 @@ public class ClubMap extends JFrame {
                     int dy = (int)(waypointPoint.getY() - centerPoint.getY()) + mapViewer.getHeight() / 2;
 
                     if (Math.abs(e.getX() - dx) < 15 && Math.abs(e.getY() - dy) < 15) {
+                        //Ende des KI generierten Inhalts
                         System.out.println("Übertrage Infos");
                         club.zeigeWaypoint((infoWaypoint) waypoint);
                         splitPane.setLeftComponent(club);

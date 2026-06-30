@@ -12,30 +12,55 @@ import java.net.URI;
 
 public class ClubOverview extends JPanel {
     private JPanel mainPanel;
-    private JLabel Ueberschrift;
-    private JLabel Club1;
-    private infoWaypoint clubWaypoint;
     private Club clubanzeige1;
     private JSplitPane splitPane;
+    private JPanel clubListPanel;
 
     public ClubOverview(Club club, JSplitPane splitPane, JXMapViewer mapViewer) {
         this.clubanzeige1 = club;
         this.splitPane = splitPane;
-        add(mainPanel, BorderLayout.CENTER);
-        Club1.setText("Projekt 42"); //clubinfo.name
-        clubWaypoint = ClubDatabase.getClub(0).clubinfo;
-        //clubWaypoint = new infoWaypoint(new GeoPosition(51.195457, 6.428547), "Projekt 42", new String[]{"Waldhausener Str. 40-42, 41061 Mönchengladbach-Nord", "Freitag,23:00–05:00;Samstag,23:00–05:00;", "http://projekt42.info/"});
-        Club1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        Club1.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                clubanzeige1.zeigeWaypoint(clubWaypoint);
-                splitPane.setLeftComponent(clubanzeige1);
-                splitPane.revalidate();
-                splitPane.repaint();
-                mapViewer.setAddressLocation(clubWaypoint.getPosition());
-                mapViewer.setZoom(2);
-            }
-        });
+        
+        setLayout(new BorderLayout());
+        clubListPanel = new JPanel();
+        clubListPanel.setLayout(new BoxLayout(clubListPanel, BoxLayout.Y_AXIS));
+        
+        JScrollPane scrollPane = new JScrollPane(clubListPanel);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        
+        for (clubinfos clubInfo : ClubDatabase.getClubs()) {
+            //Beginnend von hier bis zur Anmerkung Ende wurde der Code mit Cascade ai SWE-1.6 erstellt
+            JLabel clubLabel = new JLabel(clubInfo.getClubinfo().getName());
+            clubLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            clubLabel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+            clubLabel.setMaximumSize(new Dimension(Integer.MAX_VALUE, clubLabel.getPreferredSize().height));
+            //Ende des KI generierten Inhalts
+            
+            clubLabel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    clubanzeige1.zeigeWaypoint(clubInfo.getClubinfo());
+                    splitPane.setLeftComponent(clubanzeige1);
+                    splitPane.revalidate();
+                    splitPane.repaint();
+                    mapViewer.setAddressLocation(clubInfo.getClubinfo().getPosition());
+                    mapViewer.setZoom(2);
+                }
+                
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    clubLabel.setForeground(Color.BLUE);
+                }
+                
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    clubLabel.setForeground(Color.BLACK);
+                }
+            });
+            
+            clubListPanel.add(clubLabel);
+            clubListPanel.add(Box.createVerticalStrut(5));
+        }
+        
+        add(scrollPane, BorderLayout.CENTER);
     }
 }

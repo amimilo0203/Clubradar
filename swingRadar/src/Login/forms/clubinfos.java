@@ -17,6 +17,8 @@ public class  clubinfos {
         return clubinfo;
     }
     public static String getBewertungen() {
-        return bewertungen;
+        if(bewertungen != null)
+            return bewertungen;
+        return null;
     }
 }

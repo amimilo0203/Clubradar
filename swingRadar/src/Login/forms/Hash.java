@@ -3,6 +3,8 @@ package Login.forms;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+//Diese Klasse wurde von claude.ai Sonnet 4.6 erstellt
+
 public class Hash {
 
     public static String erstelleHash(String wort) {
